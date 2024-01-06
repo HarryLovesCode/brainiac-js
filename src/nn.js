@@ -98,9 +98,17 @@ const relu = new ActivationFunction(
   (y) => (y > 0 ? 1 : 0)
 );
 
+const tanh = new ActivationFunction(
+  (x) => Math.tanh(x),
+  (y) => 1 - y * y
+);
+
 module.exports = {
+  // Network components.
   LayeredNeuralNetwork,
   Layer,
+  // Activation functions.
   sigmoid,
   relu,
+  tanh,
 };
