@@ -36,6 +36,30 @@ class LayeredNeuralNetwork {
 
     return outputs.toArray();
   }
+
+  serialize() {
+    const layers = [];
+
+    for (let i = 0; i < this.layers.length; i++) {
+      layers.push(this.layers[i].serialize());
+    }
+
+    return JSON.stringify(layers);
+  }
+
+  static deserialize(data) {
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
+
+    const layers = [];
+
+    for (let i = 0; i < data.length; i++) {
+      layers.push(Layer.deserialize(data[i]));
+    }
+
+    return new LayeredNeuralNetwork(layers);
+  }
 }
 
 class Layer {
@@ -79,6 +103,23 @@ class Layer {
 
     return matrix.multiply(weightsT, errors);
   }
+
+  serialize() {
+    return JSON.stringify(this);
+  }
+
+  static deserialize(data) {
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
+
+    let layer = new Layer(data.inputSize, data.outputSize, data.activation);
+
+    layer.weights = matrix.deserialize(data.weights);
+    layer.bias = matrix.deserialize(data.bias);
+
+    return layer;
+  }
 }
 
 class ActivationFunction {
@@ -98,6 +139,11 @@ const relu = new ActivationFunction(
   (y) => (y > 0 ? 1 : 0)
 );
 
+const leakyRelu = new ActivationFunction(
+  (x, alpha = 0.1) => (x > 0 ? x : alpha * x),
+  (y, alpha = 0.1) => (y > 0 ? 1 : alpha)
+);
+
 const tanh = new ActivationFunction(
   (x) => Math.tanh(x),
   (y) => 1 - y * y
@@ -110,5 +156,6 @@ module.exports = {
   // Activation functions.
   sigmoid,
   relu,
+  leakyRelu,
   tanh,
 };
