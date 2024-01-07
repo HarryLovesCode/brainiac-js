@@ -1,10 +1,10 @@
 const { LayeredNeuralNetwork, Layer, relu, sigmoid } = require("./nn");
 
 const nn = new LayeredNeuralNetwork([
-  new Layer(2, 8, relu), // 2 inputs.
-  new Layer(8, 8, relu), // 8 hidden nodes.
-  new Layer(8, 8, relu), // 8 hidden nodes.
-  new Layer(8, 1, sigmoid), // 1 output.
+  new Layer(2, 8, sigmoid), // 2 inputs.
+  new Layer(8, 8, sigmoid), // 8 hidden nodes.
+  new Layer(8, 8, sigmoid), // 8 hidden nodes.
+  new Layer(8, 1, relu), // 1 output.
 ]);
 
 for (let i = 0; i < 10000; i++) {

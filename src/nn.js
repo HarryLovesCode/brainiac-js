@@ -140,8 +140,8 @@ const relu = new ActivationFunction(
 );
 
 const leakyRelu = new ActivationFunction(
-  (x, alpha = 0.1) => (x > 0 ? x : alpha * x),
-  (y, alpha = 0.1) => (y > 0 ? 1 : alpha)
+  (x, alpha = 0.001) => Math.max(alpha * x, x),
+  (y, alpha = 0.001) => (y > 0 ? 1 : alpha)
 );
 
 const tanh = new ActivationFunction(

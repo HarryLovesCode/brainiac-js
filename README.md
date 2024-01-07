@@ -17,10 +17,10 @@ Also, shoutout to the package: `seedrandom` as it is helpful when debugging to g
 const { LayeredNeuralNetwork, Layer, relu, sigmoid } = require("./nn");
 
 const nn = new LayeredNeuralNetwork([
-  new Layer(2, 8, relu), // 2 inputs.
-  new Layer(8, 8, relu), // 8 hidden nodes.
-  new Layer(8, 8, relu), // 8 hidden nodes.
-  new Layer(8, 1, sigmoid), // 1 output.
+  new Layer(2, 8, sigmoid), // 2 inputs.
+  new Layer(8, 8, sigmoid), // 8 hidden nodes.
+  new Layer(8, 8, sigmoid), // 8 hidden nodes.
+  new Layer(8, 1, relu), // 1 output.
 ]);
 
 for (let i = 0; i < 10000; i++) {
@@ -36,8 +36,8 @@ console.log(nn.predict([1, 0]));
 console.log(nn.predict([1, 1]));
 
 // OUTPUT: 
-// [ 0.00003283821807624536 ]
-// [ 0.9999904128791597 ]
-// [ 0.9999939004027121 ]
-// [ 0.000003504674297495761 ]
+// [ 0 ]
+// [ 1 ]
+// [ 1 ]
+// [ 0 ]
 ```
